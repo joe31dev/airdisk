@@ -3,11 +3,11 @@
 ###############################
 
 # refresh software packages
-sudo apt-get -y update
-sudo apt-get -y upgrade
+apt-get -y update
+apt-get -y upgrade
 
 # install additional software
-sudo apt-get -y install samba samba-common-bin hostapd dnsmasq
+apt-get -y install samba samba-common-bin hostapd dnsmasq
 
 
 
@@ -19,7 +19,7 @@ nohook wpa_supplicant
 EOF
 
 # configure address space
-sudo echo <<`EOF > /etc/dnsmasq.conf
+echo > /etc/dnsmasq.conf <<EOF 
 # define interface
 interface=wlan0
 # dhcp address space
@@ -27,7 +27,7 @@ dhcp-range=192.168.0.1,192.168.0.100,255.255.255.0,24h
 EOF 
 
 # configure hostapd
-sudo echo <<'EOF' > /etc/hostapd/hostapd.conf
+echo > /etc/hostapd/hostapd.conf <<EOF 
 # interface wlan 
 interface=wlan0
 
@@ -44,17 +44,17 @@ hw_mode=g
 channel=6
 EOF 
 
-sudo echo 'DAEMON_CONF="/etc/hostapd/hostapd.conf"' > /etc/default/hostapd
+echo 'DAEMON_CONF="/etc/hostapd/hostapd.conf"' > /etc/default/hostapd
 
 # configure hostapd
-sudo systemctl unmask hostapd
-sudo systemctl enable hostapd
+systemctl unmask hostapd
+systemctl enable hostapd
 
 # create shared space
 mkdir /var/samba
 
 # configure samba
-sudo echo <<'EOF' >> /etc/samba/smb.conf
+echo >> /etc/samba/smb.conf <<EOF 
 [airdisk]
 path = /var/samba
 writeable=Yes
@@ -64,4 +64,4 @@ public=no
 EOF 
 
 # reboot pi to launch services
-sudo reboot
+reboot
