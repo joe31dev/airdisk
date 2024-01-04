@@ -12,22 +12,22 @@ sudo apt-get -y install samba samba-common-bin hostapd dnsmasq
 
 
 # add lines to dhcpd.conf file
-sudo echo << EOF
+sudo echo << EOF >> /etc/dhcpd.conf
 interface wlan0
 static ip_address=192.168.0.254/24
 nohook wpa_supplicant
-EOF >> /etc/dhcpd.conf
+EOF 
 
 # configure address space
-sudo echo << EOF
+sudo echo << EOF > /etc/dnsmasq.conf
 # define interface
 interface=wlan0
 # dhcp address space
 dhcp-range=192.168.0.1,192.168.0.100,255.255.255.0,24h 
-EOF >  /etc/dnsmasq.conf
+EOF 
 
 # configure hostapd
-sudo echo << EOF
+sudo echo << EOF > /etc/hostapd/hostapd.conf
 # interface wlan 
 interface=wlan0
 
@@ -42,7 +42,7 @@ hw_mode=g
 
 # channel (1-14)
 channel=6
-EOF > /etc/hostapd/hostapd.conf
+EOF 
 
 sudo echo 'DAEMON_CONF="/etc/hostapd/hostapd.conf"' > /etc/default/hostapd
 
@@ -54,14 +54,14 @@ sudo systemctl enable hostapd
 mkdir /var/samba
 
 # configure samba
-sudo echo << EOF
+sudo echo << EOF >> /etc/samba/smb.conf
 [airdisk]
 path = /var/samba
 writeable=Yes
 create mask=0777
 directory mask=0777
 public=no
-EOF >> /etc/samba/smb.conf
+EOF 
 
 # reboot pi to launch services
 sudo reboot
