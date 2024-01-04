@@ -12,14 +12,14 @@ sudo apt-get -y install samba samba-common-bin hostapd dnsmasq
 
 
 # add lines to dhcpd.conf file
-sudo echo << EOF >> /etc/dhcpd.conf
+sudo echo <<EOF >> /etc/dhcpd.conf
 interface wlan0
 static ip_address=192.168.0.254/24
 nohook wpa_supplicant
 EOF 
 
 # configure address space
-sudo echo << EOF > /etc/dnsmasq.conf
+sudo echo <<EOF > /etc/dnsmasq.conf
 # define interface
 interface=wlan0
 # dhcp address space
@@ -27,7 +27,7 @@ dhcp-range=192.168.0.1,192.168.0.100,255.255.255.0,24h
 EOF 
 
 # configure hostapd
-sudo echo << EOF > /etc/hostapd/hostapd.conf
+sudo echo <<EOF > /etc/hostapd/hostapd.conf
 # interface wlan 
 interface=wlan0
 
@@ -54,7 +54,7 @@ sudo systemctl enable hostapd
 mkdir /var/samba
 
 # configure samba
-sudo echo << EOF >> /etc/samba/smb.conf
+sudo echo <<EOF >> /etc/samba/smb.conf
 [airdisk]
 path = /var/samba
 writeable=Yes
