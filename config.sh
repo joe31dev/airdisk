@@ -54,7 +54,7 @@ systemctl enable hostapd
 mkdir /var/samba
 
 # configure samba
-echo  <<EOF 
+cat <<EOF 
 [airdisk]
 path = /var/samba
 writeable=Yes
