@@ -54,14 +54,14 @@ systemctl enable hostapd
 mkdir /var/samba
 
 # configure samba
-echo >> /etc/samba/smb.conf <<EOF 
+echo  <<EOF 
 [airdisk]
 path = /var/samba
 writeable=Yes
 create mask=0777
 directory mask=0777
 public=no
-EOF 
+EOF >> /etc/samba/smb.conf
 
 # reboot pi to launch services
 reboot
