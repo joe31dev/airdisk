@@ -12,14 +12,14 @@ sudo apt-get -y install samba samba-common-bin hostapd dnsmasq
 
 
 # add lines to dhcpd.conf file
-sudo cat  <<'EOF' >> /etc/dhcpd.conf
+sudo cat  <<`EOF >> /etc/dhcpd.conf
 interface wlan0
 static ip_address=192.168.0.254/24
 nohook wpa_supplicant
 EOF 
 
 # configure address space
-sudo echo <<'EOF' > /etc/dnsmasq.conf
+sudo echo <<`EOF > /etc/dnsmasq.conf
 # define interface
 interface=wlan0
 # dhcp address space
