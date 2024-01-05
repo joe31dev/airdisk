@@ -29,11 +29,24 @@ sudo systemctl unmask hostapd
 sudo systemctl enable hostapd
 
 # create shared space
-mkdir /var/samba
+sudo mkdir /var/samba
+sudo chmod 777 /var/samba
+sudo chown root:sambashare /var/samba 
 
 # configure samba
 wget https://github.com/joe31dev/airdisk/raw/main/smb.conf
 sudo cat smb.conf >> /etc/samba/smb.conf
+sudo systemctl restart smb
+
+# install rpiplay
+sudo apt-get install libavahi-compat-libdnssd
+sudo apt-get install libplist
+sudo apt-get install libssl
+
+# install nginx server
+sudo apt-get -y install nginx
+ 
+
 
 # reboot pi to launch services
-reboot
+sudo reboot
